@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.serratec.trabalhoindividual.model.cliente.ClienteCriar;
 
 import java.util.UUID;
 
@@ -37,4 +38,11 @@ public class Cliente {
     @NotBlank(message = "O e-mail é obrigatório")
     @Column(length = 100, nullable = false, unique = true)
     private String email;
+
+    public Cliente(ClienteCriar clienteCriar) {
+        this.nome = clienteCriar.getNome();
+        this.telefone = clienteCriar.getTelefone();
+        this.cpf = clienteCriar.getCpf();
+        this.email = clienteCriar.getEmail();
+    }
 }
