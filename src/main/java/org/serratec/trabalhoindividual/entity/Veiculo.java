@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.serratec.trabalhoindividual.model.veiculo.VeiculoCriar;
 
 import java.util.UUID;
 
@@ -58,4 +59,7 @@ import java.util.UUID;
 
         @Min(1)
         private Double valorVenda;
+
+        public Veiculo(VeiculoCriar veiculoCriar, Cliente cliente) {
+        }
     }
