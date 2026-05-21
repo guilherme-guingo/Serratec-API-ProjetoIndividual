@@ -38,10 +38,10 @@ public class ClienteService {
 
         if (cpf != null && !cpf.isBlank()) {
             clientes = this.clienteRepository.findByCpf(cpf);
-        }
-
-        if (nome != null && !nome.isBlank()) {
+        } else if (nome != null && !nome.isBlank()) {
             clientes = this.clienteRepository.findByNome(nome);
+        } else {
+            clientes = this.clienteRepository.findAll();
         }
 
         if (clientes.isEmpty()) {
@@ -51,5 +51,11 @@ public class ClienteService {
         return clientes.stream()
                 .map(cliente -> new ClienteBuscaId(cliente))
                 .toList();
+    }
+
+    public void deletar(UUID id) {
+        Cliente cliente = this.clienteRepository.findById(id)
+                .orElseThrow(() -> new NaoEncontradoException("O cliente não foi encontrado pelo id: " + id));
+        this.clienteRepository.delete(cliente);
     }
 }
