@@ -1,0 +1,376 @@
+
+
+openapi: 3.1.0
+info:
+  title: API de Gestão de Clientes e Veículos
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api/v1
+tags:
+  - name: Cliente
+  - name: Veículo
+paths:
+  /cliente:
+    post:
+      summary: Cadastrar um novo cliente
+      tags:
+        - Cliente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClienteInput'
+      responses:
+        '201':
+          description: Cliente criado com sucesso
+        '400':
+          $ref: "#/components/responses/400"
+        '409':
+          $ref: "#/components/responses/409"
+        '500':
+          $ref: "#/components/responses/500"
+    get:
+      summary: Listar clientes ou buscar por nome/cpf
+      tags:
+        - Cliente
+      parameters:
+        - name: nome
+          in: query
+          schema:
+            type: string
+          description: Filtrar por nome
+          required: false
+        - name: cpf
+          in: query
+          schema:
+            type: string
+          description: Filtrar por CPF
+          required: false
+      responses:
+        '200':
+          description: Lista de clientes retornada
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cliente'
+        '400':
+          $ref: "#/components/responses/400"
+        '404':
+          $ref: "#/components/responses/404"
+        '500':
+          $ref: "#/components/responses/500"
+  /cliente/{id}:
+    delete:
+      summary: Remover um cliente
+      tags:
+        - Cliente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Cliente removido com sucesso
+        '400':
+          $ref: "#/components/responses/400"
+        '404':
+          $ref: "#/components/responses/404"
+        '500':
+          $ref: "#/components/responses/500"
+
+  /veiculo:
+    post:
+      summary: Cadastrar um novo veículo
+      tags:
+        - Veículo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VeiculoInput'
+      responses:
+        '201':
+          description: Veículo cadastrado com sucesso
+        '400':
+          $ref: "#/components/responses/400"
+        '404':
+          $ref: "#/components/responses/404"
+        '409':
+          $ref: "#/components/responses/409"
+        '500':
+          $ref: "#/components/responses/500"
+    get:
+      summary: Listar veículos ou buscar por placa/marca/modelo
+      tags:
+        - Veículo
+      parameters:
+        - name: placa
+          in: query
+          schema:
+            type: string
+          required: false
+        - name: marca
+          in: query
+          schema:
+            type: string
+          required: false
+        - name: modelo
+          in: query
+          schema:
+            type: string
+          required: false
+      responses:
+        '200':
+          description: Lista de veículos retornada
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Veiculo'
+        '404':
+          $ref: "#/components/responses/404"
+        '500':
+          $ref: "#/components/responses/500"
+  /veiculo/{id}:
+    put:
+      summary: Atualizar dados de um veículo
+      tags:
+        - Veículo
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VeiculoUpdateInput'
+      responses:
+        '200':
+          description: Veículo atualizado com sucesso
+        '400':
+          $ref: "#/components/responses/400"
+        '404':
+          $ref: "#/components/responses/404"
+        '500':
+          $ref: "#/components/responses/500"
+    delete:
+      summary: Remover um veículo
+      tags:
+        - Veículo
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Veículo removido com sucesso
+        '400':
+          $ref: "#/components/responses/400"
+        '404':
+          $ref: "#/components/responses/404"
+        '500':
+          $ref: "#/components/responses/500"
+
+components:
+  responses:
+    '400':
+      description: Dados informados inválidos
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - mensagem
+            properties:
+              mensagem:
+                type: string
+    '404':
+      description: Dados não encontrado
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - mensagem
+            properties:
+              mensagem:
+                type: string
+    '409':
+      description: Dados já cadastrado
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - mensagem
+            properties:
+              mensagem:
+                type: string
+    '500':
+      description: Erro interno no servidor
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - mensagem
+            properties:
+              mensagem:
+                type: string
+
+  schemas:
+    Cliente:
+      type: object
+      required:
+        - id
+        - nome
+        - telefone
+        - cpf
+        - email
+      properties:
+        id:
+          type: string
+          format: uuid
+        nome:
+          type: string
+        telefone:
+          type: string
+        cpf:
+          type: string
+          description: CPF único do cliente
+        email:
+          type: string
+          format: email
+
+    ClienteInput:
+      type: object
+      required:
+        - nome
+        - telefone
+        - cpf
+        - email
+      properties:
+        nome:
+          type: string
+        telefone:
+          type: string
+        cpf:
+          type: string
+        email:
+          type: string
+          format: email
+
+    Veiculo:
+      type: object
+      required:
+        - id
+        - clienteId
+        - marca
+        - modelo
+        - ano
+        - valor
+        - placa
+        - maximoDesconto
+        - vendido
+      properties:
+        id:
+          type: string
+          format: uuid
+        clienteId:
+          type: string
+          format: uuid
+        marca:
+          type: string
+        modelo:
+          type: string
+        ano:
+          type: integer
+          minimum: 1900
+        valor:
+          type: number
+          format: float
+          minimum: 1
+        placa:
+          type: string
+        maximoDesconto:
+          type: number
+          format: float
+          minimum: 0
+        vendido:
+          type: boolean
+        valorVenda:
+          type: number
+          format: float
+          description: Obrigatório se vendido for true.
+
+    VeiculoUpdateInput:
+      type: object
+      properties:
+        marca:
+          type: string
+        modelo:
+          type: string
+        ano:
+          type: integer
+        valor:
+          type: number
+          format: float
+        maximoDesconto:
+          type: number
+          format: float
+        vendido:
+          type: boolean
+        valorVenda:
+          type: number
+          format: float
+          description: Obrigatório se vendido for true.
+
+    VeiculoInput:
+      type: object
+      required:
+        - clienteId
+        - marca
+        - modelo
+        - ano
+        - valor
+        - placa
+        - maximoDesconto
+        - vendido
+      properties:
+        clienteId:
+          type: string
+          format: uuid
+        marca:
+          type: string
+        modelo:
+          type: string
+        ano:
+          type: integer
+          minimum: 1900
+        valor:
+          type: number
+          format: float
+          minimum: 1
+        placa:
+          type: string
+        maximoDesconto:
+          type: number
+          format: float
+          minimum: 0
+
