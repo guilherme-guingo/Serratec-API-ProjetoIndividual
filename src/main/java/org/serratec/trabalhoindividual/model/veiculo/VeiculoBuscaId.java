@@ -9,7 +9,7 @@ import java.util.UUID;
 public class VeiculoBuscaId {
 
     private UUID id;
-    private String clienteNome;
+    private UUID clienteId;
     private String marca;
     private String modelo;
     private Integer ano;
@@ -20,7 +20,7 @@ public class VeiculoBuscaId {
 
     public VeiculoBuscaId(Veiculo veiculo) {
         this.id = veiculo.getId();
-        this.clienteNome = veiculo.getCliente().getNome();
+        this.clienteId = veiculo.getCliente().getId();
         this.marca = veiculo.getMarca();
         this.modelo = veiculo.getModelo();
         this.ano = veiculo.getAno();

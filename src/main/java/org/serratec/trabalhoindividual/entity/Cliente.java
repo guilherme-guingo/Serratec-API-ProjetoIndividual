@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.serratec.trabalhoindividual.model.cliente.ClienteCriar;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -38,6 +39,9 @@ public class Cliente {
     @NotBlank(message = "O e-mail é obrigatório")
     @Column(length = 100, nullable = false, unique = true)
     private String email;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Veiculo> veiculos;
 
     public Cliente(ClienteCriar clienteCriar) {
         this.nome = clienteCriar.getNome();
