@@ -5,7 +5,7 @@ info:
   title: API de Gestão de Clientes e Veículos
   version: 1.0.0
 servers:
-  - url: http://localhost:8080/api/v1
+  - url: http://localhost:8081/api/v1
 tags:
   - name: Cliente
   - name: Veículo
