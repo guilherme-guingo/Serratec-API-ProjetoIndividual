@@ -49,6 +49,7 @@ Para acessar a interface gráfica do Swagger:
 5. Atualize as dependências do Maven.
 6. Execute a classe principal `TrabalhoIndividualApplication.java`.
 7. O servidor iniciará na porta `8081`.
+8. obs: Para fins didaticos, o banco foi configurado para ser criado do 0 após cada incialização, se quiser testar a persistencia, altere `spring.jpa.hibernate.ddl-auto=create` para `update` no `application.properties`
 
 ---
 *Projeto desenvolvido como Trabalho Individual da disciplina de APIs do Serratec.*
