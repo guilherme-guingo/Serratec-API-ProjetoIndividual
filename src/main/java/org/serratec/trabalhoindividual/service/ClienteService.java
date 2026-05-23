@@ -26,6 +26,9 @@ public class ClienteService {
         if(this.clienteRepository.existsByCpf(clienteCriar.getCpf())) {
             throw new JaCadastradoException("CPF já cadastrado no sistema.");
         }
+        if(this.clienteRepository.existsByEmail(clienteCriar.getEmail())) {
+            throw new JaCadastradoException("E-mail já cadastrado no sistema.");
+        }
         Cliente clienteInserir = new Cliente(clienteCriar);
 
         try {
