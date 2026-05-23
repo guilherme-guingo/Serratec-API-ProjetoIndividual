@@ -1,6 +1,7 @@
 package org.serratec.trabalhoindividual.service;
 
 import org.serratec.trabalhoindividual.entity.Cliente;
+import org.serratec.trabalhoindividual.exception.DadoInvalidoException;
 import org.serratec.trabalhoindividual.exception.JaCadastradoException;
 import org.serratec.trabalhoindividual.exception.NaoEncontradoException;
 import org.serratec.trabalhoindividual.model.cliente.ClienteBuscaId;
@@ -26,7 +27,15 @@ public class ClienteService {
             throw new JaCadastradoException("CPF já cadastrado no sistema.");
         }
         Cliente clienteInserir = new Cliente(clienteCriar);
-        this.clienteRepository.save(clienteInserir);
+
+        try {
+            this.clienteRepository.save(clienteInserir);
+        } catch (jakarta.validation.ConstraintViolationException ex) {
+            String mensagens = ex.getConstraintViolations().stream()
+                    .map(erro -> erro.getPropertyPath() + ": " + erro.getMessage())
+                    .collect(java.util.stream.Collectors.joining(", "));
+            throw new DadoInvalidoException(mensagens);
+            }
     }
 
     public ClienteBuscaId buscarPorId(UUID id) {

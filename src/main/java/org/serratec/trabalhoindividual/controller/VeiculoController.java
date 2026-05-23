@@ -30,7 +30,8 @@ public class VeiculoController {
             @ApiResponse(responseCode = "201", description = "Veículo cadastrado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados informados inválidos"),
             @ApiResponse(responseCode = "404", description = "Dados não encontrados"),
-            @ApiResponse(responseCode = "409", description = "Dados já cadastrados")
+            @ApiResponse(responseCode = "409", description = "Dados já cadastrados"),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
     })
     @PostMapping
     public ResponseEntity<Void> inserir(@Valid @RequestBody VeiculoCriar veiculoCriar) {
@@ -41,7 +42,8 @@ public class VeiculoController {
     @Operation(summary = "Listar veículos ou buscar por placa/marca/modelo")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de veículos retornada"),
-            @ApiResponse(responseCode = "404", description = "Dados não encontrados")
+            @ApiResponse(responseCode = "404", description = "Dados não encontrados"),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
     })
     @GetMapping
     public ResponseEntity<List<VeiculoBuscaId>> buscar(
@@ -55,7 +57,8 @@ public class VeiculoController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Veículo atualizado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados informados inválidos"),
-            @ApiResponse(responseCode = "404", description = "Dados não encontrados")
+            @ApiResponse(responseCode = "404", description = "Dados não encontrados"),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
     })
     @PutMapping("/{id}")
     public ResponseEntity<Void> atualizar(@PathVariable UUID id, @Valid @RequestBody VeiculoUpdateInput veiculoUpdate) {
@@ -67,7 +70,8 @@ public class VeiculoController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Veículo removido com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados informados inválidos"),
-            @ApiResponse(responseCode = "404", description = "Dados não encontrados")
+            @ApiResponse(responseCode = "404", description = "Dados não encontrados"),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable UUID id) {

@@ -61,5 +61,14 @@ import java.util.UUID;
         private Double valorVenda;
 
         public Veiculo(VeiculoCriar veiculoCriar, Cliente cliente) {
+            this.marca = veiculoCriar.getMarca();
+            this.modelo = veiculoCriar.getModelo();
+            this.ano = veiculoCriar.getAno();
+            this.valor = veiculoCriar.getValor();
+            this.placa = veiculoCriar.getPlaca();
+            this.maximoDesconto = veiculoCriar.getMaximoDesconto();
+            this.vendido = veiculoCriar.isVendido();
+            this.valorVenda = veiculoCriar.getValorVenda();
+            this.cliente = cliente;
         }
     }

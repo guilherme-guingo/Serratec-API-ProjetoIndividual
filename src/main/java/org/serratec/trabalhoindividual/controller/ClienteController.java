@@ -28,7 +28,8 @@ public class ClienteController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Cliente criado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados informados inválidos"),
-            @ApiResponse(responseCode = "409", description = "Dados já cadastrados")
+            @ApiResponse(responseCode = "409", description = "Dados já cadastrados"),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
     })
     @PostMapping
     public ResponseEntity<Void> inserir(@Valid @RequestBody ClienteCriar clienteCriar) {
@@ -40,7 +41,8 @@ public class ClienteController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de clientes retornada"),
             @ApiResponse(responseCode = "400", description = "Dados informados inválidos"),
-            @ApiResponse(responseCode = "404", description = "Dados não encontrados")
+            @ApiResponse(responseCode = "404", description = "Dados não encontrados"),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
     })
     @GetMapping
     public ResponseEntity<List<ClienteBuscaId>> buscar(
@@ -53,7 +55,8 @@ public class ClienteController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Cliente removido com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados informados inválidos"),
-            @ApiResponse(responseCode = "404", description = "Dados não encontrados")
+            @ApiResponse(responseCode = "404", description = "Dados não encontrados"),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable UUID id) {

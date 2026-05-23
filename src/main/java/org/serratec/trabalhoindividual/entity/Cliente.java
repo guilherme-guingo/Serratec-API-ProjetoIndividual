@@ -27,7 +27,7 @@ public class Cliente {
     private String nome;
 
     @NotBlank(message = "O telefone é obrigatório")
-    @Size(max = 12, min = 11)
+    @Size(max = 12, min = 10)
     @Column(length = 12, nullable = false)
     private String telefone;
 
