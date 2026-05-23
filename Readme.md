@@ -45,7 +45,7 @@ Para acessar a interface gráfica do Swagger:
 1. Clone o repositório.
 2. Certifique-se de ter o **Java 17** e o **PostgreSQL** instalados na sua máquina.
 3. Crie um banco de dados no PostgreSQL
-4. Corrija a variavel DB_PASSWORD diretamente no arquivo `application.properties` ou adicione uma variavel de ambiente com esse mesmo nome
+4. atualize suas credencias de acesso ao banco diretamente no arquivo `application.properties`
 5. Atualize as dependências do Maven.
 6. Execute a classe principal `TrabalhoIndividualApplication.java`.
 7. O servidor iniciará na porta `8081`.
