@@ -33,4 +33,5 @@ public class ControllerExceptionHandler {
     public ResponseEntity<ErroResposta> handleJaCadastrado(JaCadastradoException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErroResposta(ex.getMessage()));
     }
+
 }

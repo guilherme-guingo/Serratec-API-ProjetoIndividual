@@ -13,7 +13,7 @@ public class ClienteCriar {
     private String nome;
 
     @NotBlank
-    @Size(min = 10, max = 15)
+    @Size(min = 10, max = 12)
     private String telefone;
 
     @NotBlank

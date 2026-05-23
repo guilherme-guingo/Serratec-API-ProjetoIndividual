@@ -44,7 +44,15 @@ public class VeiculoService {
         }
 
         Veiculo veiculoInserir = new Veiculo(veiculoCriar, cliente);
-        this.veiculoRepository.save(veiculoInserir);
+
+        try {
+            this.veiculoRepository.save(veiculoInserir);
+        } catch (jakarta.validation.ConstraintViolationException ex) {
+            String mensagens = ex.getConstraintViolations().stream()
+                    .map(erro -> erro.getPropertyPath() + ": " + erro.getMessage())
+                    .collect(java.util.stream.Collectors.joining(", "));
+            throw new DadoInvalidoException(mensagens);
+        }
     }
 
     public VeiculoBuscaId buscarPorId(UUID id) {
